@@ -1,18 +1,15 @@
 class ContactsController < ApplicationController
-  before_action :set_contact, only: [:show, :update, :destroy]
- 
+  before_action :set_contact, only: [:show, :update, :destroy] 
   # GET /contacts
   def index
     @contacts = Contact.all
 
     render json: @contacts
-  end
-
+  end 
   # GET /contacts/1
   def show
     render json: @contact, include: [:kind, :phones, :address]
   end
-
   # POST /contacts
   def create
     @contact = Contact.new(contact_params)
@@ -24,7 +21,6 @@ class ContactsController < ApplicationController
       render json: @contact.errors, status: :unprocessable_entity
     end
   end
-
   # PATCH/PUT /contacts/1
   def update
     if @contact.update(contact_params)
@@ -33,7 +29,7 @@ class ContactsController < ApplicationController
       render json: @contact.errors, status: :unprocessable_entity
     end
   end
-
+  
   # DELETE /contacts/1
   def destroy
     @contact.destroy
