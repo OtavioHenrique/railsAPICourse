@@ -28,6 +28,7 @@ class AddressesController < ApplicationController
   end
 
   private
+
   def set_contact
     @contact = Contact.find(params[:contact_id])
   end
