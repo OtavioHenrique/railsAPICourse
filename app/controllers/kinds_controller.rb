@@ -1,9 +1,8 @@
-
 class KindsController < ApplicationController
   before_action :set_kind, only: [:show, :update, :destroy]
   before_action :authenticate
 
-  TOKEN="secret"
+  TOKEN="mySecret"
   
   
   include ActionController::HttpAuthentication::Token::ControllerMethods
@@ -63,10 +62,7 @@ class KindsController < ApplicationController
 
     def authenticate
       authenticate_or_request_with_http_token do |token, options|
-        ActiveSupport::SecurityUtils.secure_compare(
-          ::Digest::SHA256.hexdigest(token),
-          ::Digest::SHA256.hexdigest(TOKEN)
-        )
+       JWT.decode token, TOKEN, true, { :algorithm => "HS512" } 
       end
     end
 end
