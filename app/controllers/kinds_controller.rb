@@ -1,11 +1,5 @@
 class KindsController < ApplicationController
   before_action :set_kind, only: [:show, :update, :destroy]
-  before_action :authenticate
-
-  TOKEN="mySecret"
-  
-  
-  include ActionController::HttpAuthentication::Token::ControllerMethods
 
   # GET /kinds
   def index
@@ -46,23 +40,17 @@ class KindsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_kind
-      if params[:contact_id]
-        @kind = Contact.find(params[:contact_id]).kind_id
-        return
-      end
-       
-      @kind = Kind.find(kind_id)
+  def set_kind
+    if params[:contact_id]
+      @kind = Contact.find(params[:contact_id]).kind_id
+      return
     end
+     
+    @kind = Kind.find(kind_id)
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def kind_params
-      params.require(:kind).permit(:description)
-    end
-
-    def authenticate
-      authenticate_or_request_with_http_token do |token, options|
-       JWT.decode token, TOKEN, true, { :algorithm => "HS512" } 
-      end
-    end
+  # Only allow a trusted parameter "white list" through.
+  def kind_params
+    params.require(:kind).permit(:description)
+  end
 end

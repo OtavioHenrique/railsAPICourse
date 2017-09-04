@@ -6,7 +6,9 @@ git_source(:github) do |repo_name|
 end
 
 gem "active_model_serializers", "~> 0.10.0"
+gem "devise_token_auth"
 gem "jwt"
+gem "omniauth"
 gem "puma", "~> 3.0"
 gem "rack-cors"
 gem "rails", "~> 5.0.1"
