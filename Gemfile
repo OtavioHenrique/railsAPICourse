@@ -14,6 +14,7 @@ gem "rack-cors"
 gem "rails", "~> 5.0.1"
 gem "rails-i18n", "~> 5.0.0"
 gem "sqlite3"
+gem "versionist"
 
 group :development, :test do
   gem "byebug", platform: :mri
