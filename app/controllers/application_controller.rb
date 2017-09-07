@@ -6,7 +6,12 @@ class ApplicationController < ActionController::API
   skip_before_filter :authenticate_user!, if: :devise_controller?
 
   def ensure_json_request
-    return if request.headers["Accept"] =~ /json/
-    render :nothing => true, :status => 406
+    unless request.headers["Accept"] =~ /json/
+      render :nothing => true, :status => 406
+    end
+    unless request.get?
+      return if request.headers["Content-Type"] =~ /json/
+      render :nothing => true, :status => 415
+    end
   end
 end

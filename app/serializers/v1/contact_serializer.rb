@@ -16,6 +16,10 @@ module V1
     
     link(:self) { v1_contact_url(object.id) }
     
+    def total_contacts
+      Contact.all.count
+    end
+
     def attributes(*args)
       h = super(*args)
       h[:birthdate] = object.birthdate.to_time.iso8601 unless object.birthdate.blank?

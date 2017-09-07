@@ -3,8 +3,8 @@ module V1
     before_action :set_contact, only: [:show, :update, :destroy] 
     # GET /contacts
     def index
-      @contacts = Contact.all
-
+      @contacts = Contact.all.page(params[:page].try(:[], :number))
+                                  .per(params[:page].try(:[], :size))
       render json: @contacts
     end 
     # GET /contacts/1
