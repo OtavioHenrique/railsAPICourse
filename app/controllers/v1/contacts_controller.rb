@@ -6,6 +6,8 @@ module V1
     def index
       @contacts = Contact.all.page(params[:page].try(:[], :number))
                                   .per(params[:page].try(:[], :size))
+      
+      expires_in 30.seconds, public: true
       render json: @contacts
     end 
     # GET /contacts/1
