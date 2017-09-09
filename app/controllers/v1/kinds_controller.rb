@@ -5,8 +5,10 @@ module V1
     # GET /kinds
     def index
       @kinds = Kind.all
-
-      render json: @kinds
+      
+      if stale?(etag: @kinds)
+        render json: @kinds
+      end
     end
 
     # GET /kinds/1

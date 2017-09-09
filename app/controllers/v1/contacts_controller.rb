@@ -7,8 +7,9 @@ module V1
       @contacts = Contact.all.page(params[:page].try(:[], :number))
                                   .per(params[:page].try(:[], :size))
       
-      expires_in 30.seconds, public: true
-      render json: @contacts
+      if stale?(etag: @contacts)
+        render json: @contacts
+      end
     end 
     # GET /contacts/1
     def show
